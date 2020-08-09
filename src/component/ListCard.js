@@ -30,6 +30,9 @@ const ListCard = () => {
         return item.name.toLowerCase().includes(searchProduct.toLowerCase());
       })
     );
+    setCurrentPage(1);
+    const action = loadCard(0);
+    dispatch(action);
   }, [searchProduct]);
 
   const cost = [
