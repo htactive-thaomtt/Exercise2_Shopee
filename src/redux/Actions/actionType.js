@@ -5,3 +5,4 @@ export const ADD_PRODUCT = "ADD_PRODUCT";
 export const EDIT_ACTIVE = "EDIT_ACTIVE";
 export const UPDATE_ACTIVE_ALL = "UPDATE_ACTIVE_ALL";
 export const ADD_ORDER = "ADD_ORDER";
+export const SEARCH = "SEARCH";

@@ -2,7 +2,7 @@ import { HeartOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Layout, Pagination, Rate, Row, Select } from "antd";
 import Meta from "antd/lib/card/Meta";
 import { isAfter } from "date-fns";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useRouteMatch } from "react-router-dom";
 import { loadCard } from "../redux/Actions/action";
@@ -16,8 +16,21 @@ const ListCard = () => {
   const dispatch = useDispatch();
   const list = useSelector((state) => state.cards.list);
   const min = useSelector((state) => state.cards.min);
+  const searchProduct = useSelector((state) => state.cards.searchProduct);
+
+  const [listCart, setListCart] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setListCart(list);
+    if (!searchProduct) return;
+    setListCart(
+      list.filter((item) => {
+        return item.name.toLowerCase().includes(searchProduct.toLowerCase());
+      })
+    );
+  }, [searchProduct]);
 
   const cost = [
     { value: 100000, label: "100000" },
@@ -25,14 +38,14 @@ const ListCard = () => {
     { value: 2000000, label: 2000000 },
   ];
 
-  const itemPerPage = 6;
-  const totalPage = Math.ceil(list.length / itemPerPage);
+  const itemPerPage = 2;
+  const totalPage = Math.ceil(listCart.length / itemPerPage);
 
   const handlePublicProduct = () => {
     setPublicProduct("danger");
     setnewProduct("");
     setbestSeller("");
-    list.sort((a, b) => {
+    listCart.sort((a, b) => {
       if (a.rate > b.rate) return -1;
       if (a.rate < b.rate) return 1;
       return 0;
@@ -45,7 +58,7 @@ const ListCard = () => {
     setPublicProduct("");
     setnewProduct("danger");
     setbestSeller("");
-    list.sort(function (a, b) {
+    listCart.sort(function (a, b) {
       var dateA = new Date(a.date);
       var dateB = new Date(b.date);
       if (isAfter(dateA, dateB)) return -1;
@@ -60,7 +73,7 @@ const ListCard = () => {
     setPublicProduct("");
     setnewProduct("");
     setbestSeller("danger");
-    list.sort((a, b) => {
+    listCart.sort((a, b) => {
       if (a.numberSold > b.numberSold) return -1;
       if (a.numberSold < b.numberSold) return 1;
       return 0;
@@ -124,7 +137,7 @@ const ListCard = () => {
         />
       </Row>
       <Row style={{ margin: "20px" }}>
-        {list.slice(min, min + itemPerPage).map((item, key) => (
+        {listCart.slice(min, min + itemPerPage).map((item, key) => (
           <Col key={item.id} span={5}>
             <Link to={`${match.url}/${item.id}`}>
               <Card

@@ -6,6 +6,7 @@ import {
   LOAD_CARD,
   UPDATE_ACTIVE_ALL,
   ADD_ORDER,
+  SEARCH,
 } from "./actionType";
 
 export const loadCard = (min) => {
@@ -28,4 +29,7 @@ export const updateActiveAll = (active) => {
 };
 export const addOrder = (order) => {
   return { type: ADD_ORDER, payload: order };
+};
+export const searchProduct = (search) => {
+  return { type: SEARCH, payload: search };
 };

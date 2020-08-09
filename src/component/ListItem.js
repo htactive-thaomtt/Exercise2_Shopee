@@ -46,7 +46,7 @@ const ListItem = () => {
   return (
     <Row>
       <Col span={12} style={{ margin: "20px" }}>
-        <img src={item.url} style={{ width: "90%", height: "100%" }} />
+        <img src={item.url} style={{ width: "80%", height: "90%" }} />
       </Col>
       <Col span={6} style={{ marginTop: "10%" }}>
         <Row style={{ marginTop: "20px" }}>
