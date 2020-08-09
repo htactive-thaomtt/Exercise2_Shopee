@@ -6,6 +6,7 @@ import {
   LOAD_CARD,
   UPDATE_ACTIVE_ALL,
   ADD_ORDER,
+  SEARCH,
 } from "../Actions/actionType";
 
 const initialState = {
@@ -72,6 +73,7 @@ const initialState = {
   ],
   numberCart: 4,
   orders: [],
+  searchProduct: "",
 };
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -130,6 +132,10 @@ const productReducer = (state = initialState, action) => {
     case ADD_ORDER: {
       let orders = [...state.orders, action.payload];
       return { ...state, orders };
+    }
+    case SEARCH: {
+      state.searchProduct = action.payload;
+      return state;
     }
     default:
       return state;
